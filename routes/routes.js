@@ -72,7 +72,7 @@ const payload = {
 }
 export const startStripeFlow = async(req,res)=>{
     try{
-        const flow = await fetch('http://127.0.0.1:5678/webhook/startstripe', {
+        const flow = await fetch('http://n8ncrcl.nanoheal.work/webhook/startstripe', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
