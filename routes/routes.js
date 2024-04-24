@@ -17,15 +17,18 @@ let transporter = nodemailer.createTransport({
 
 export const getTheWebHookPayLoad = async(req,res)=>{
     
-    try{
-          const {payload} = req.body
-          res.status(200).json(payload)
-          console.log(payload)
+    try {
+        const payload = req.body; // Remove destructuring, assuming payload is the entire body
+        // Process the payload as needed
+        console.log(payload)
+        // Send a response with the received payload
+        res.status(200).json({ message: 'Payload received successfully', payload });
     }
     catch(err){
         res.status(500).json(CircularJSON.stringify({err: err.message}))
     }
 }
+
 
 const checkLastInteger = async (url) => {
     return new Promise((resolve, reject) => {
