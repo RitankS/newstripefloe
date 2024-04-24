@@ -17,4 +17,13 @@ app.use("/pay", stripe);
 
 app.listen(port, () => {
     console.log("App is listening fine");
+
+
+   ngrok.connect({ addr: port, authtoken: process.env.NGROK_AUTH_TOKEN,  region: "in"  })
+        .then(ngrokUrl => {
+            console.log(`ngrok in: ${ngrokUrl}`);
+        })
+        .catch(error => {
+            console.log({ error: error.message });
+        });
 });
