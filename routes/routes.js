@@ -2,6 +2,7 @@ import CircularJSON from "circular-json";
 import nodemailer from "nodemailer"
 import stripe from "stripe";
 import https from "https"
+import cron from "node-cron"
 
 const STRIPE_KEY = 'sk_test_51Nv0dVSHUS8UbeVicJZf3XZJf72DL9Fs3HP1rXnQzHtaXxMKXwWfua2zi8LQjmmboeNJc3odYs7cvT9Q5YIChY5I00Pocly1O1';
 
@@ -22,10 +23,10 @@ export const getTheWebHookPayLoad = async(req,res)=>{
         // Process the payload as needed
         console.log(payload)
         // Send a response with the received payload
-        res.status(200).json({ message: 'Payload received successfully', payload });
+        return payload
     }
     catch(err){
-        res.status(500).json(CircularJSON.stringify({err: err.message}))
+        return err.message
     }
 }
 
@@ -214,3 +215,12 @@ export const monthlySubs = async (req, res) => {
         return err.message
     }
   }
+
+  cron.schedule('*/2 * * * * *', async () => {
+    console.log('Running the function every 2 seconds');
+    try {
+        await getTheWebHookPayLoad(null, null); // Pass null as req and res since they are not used
+    } catch (error) {
+        console.error('Error occurred in cron job:', error);
+    }
+});
