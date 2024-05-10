@@ -3,6 +3,7 @@ import nodemailer from "nodemailer"
 import stripe from "stripe";
 import https from "https"
 import cron from "node-cron"
+import open from "open"
 
 const STRIPE_KEY = 'sk_test_51Nv0dVSHUS8UbeVicJZf3XZJf72DL9Fs3HP1rXnQzHtaXxMKXwWfua2zi8LQjmmboeNJc3odYs7cvT9Q5YIChY5I00Pocly1O1';
 
@@ -74,6 +75,30 @@ export const getTheInteger = async (req, res) => {
 const payload = {
     "id": 80
 }
+
+
+
+
+
+
+//opening the url in another browser
+export const openUrl = async (req, res) => {
+    try {
+      const url = req.body.url; // Access the `url` property within `req.body`
+  
+      console.log("url is ", url);
+  
+      await open(url, { app: { name: 'Chrome' } }); // Specify the browser app
+  
+      console.log(`Opened ${url} in the default browser.`);
+      res.status(200).json({ success: true });
+    } catch (error) {
+      console.error(`Error opening ${url}:`, error.message);
+      res.status(500).json({ success: false, error: error.message });
+    }
+  };
+
+  
 export const startStripeFlow = async(req,res)=>{
     try{
         const flow = await fetch('https://n8ncrcl.nanoheal.work/webhook/startstripe', {
@@ -216,11 +241,11 @@ export const monthlySubs = async (req, res) => {
     }
   }
 
-  cron.schedule('*/2 * * * * *', async () => {
-    console.log('Running the function every 2 seconds');
-    try {
-        await getTheWebHookPayLoad(null, null); // Pass null as req and res since they are not used
-    } catch (error) {
-        console.error('Error occurred in cron job:', error);
-    }
-});
+//   cron.schedule('*/2 * * * * *', async () => {
+//     console.log('Running the function every 2 seconds');
+//     try {
+//         await getTheWebHookPayLoad(null, null); // Pass null as req and res since they are not used
+//     } catch (error) {
+//         console.error('Error occurred in cron job:', error);
+//     }
+// });
