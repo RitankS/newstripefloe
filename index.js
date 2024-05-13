@@ -12,9 +12,7 @@ const port = 2001;
 app.use(cors());
 app.use(express.json());
 app.use(bodyparser.json());
-app.use('/' , (req,res)=>{
-    res.json({message: "this ie working fine"})
-})
+
 app.use("/pay", stripe);
 
 
