@@ -1,5 +1,5 @@
 import express from "express"
-import { getTheInteger , startStripeFlow ,openUrl ,  takePrice , createSession , sendEmail , monthlySubs , getTheWebHookPayLoad , testingPublicAPI} from "../routes/routes.js"
+import { getTheInteger , startStripeFlow ,openUrl ,  takePrice , createSession , sendEmail , monthlySubs , getTheWebHookPayLoad , testingPublicAPI, completeStripeFlow} from "../routes/routes.js"
 const router = express.Router()
 
 
@@ -12,7 +12,7 @@ router.post("/subs" , monthlySubs)
 router.post("/getpayload" , getTheWebHookPayLoad)
 router.get("/test" , testingPublicAPI)
 router.post("/open" , openUrl)
-
+router.post("/startpay" , completeStripeFlow)
 
 
 export default router
