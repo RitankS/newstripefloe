@@ -11,9 +11,10 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyparser.json());
 
-const STRIPE_KEY = process.env.STRIPE_KEY; // Make sure to set your Stripe API key as an environment variable
+//const STRIPE_KEY = process.env.STRIPE_KEY; // Make sure to set your Stripe API key as an environment variable
 
 app.post("/pay", async (req, res) => {
+    const STRIPE_KEY = "sk_test_51Nv0dVSHUS8UbeVicJZf3XZJf72DL9Fs3HP1rXnQzHtaXxMKXwWfua2zi8LQjmmboeNJc3odYs7cvT9Q5YIChY5I00Pocly1O1"
     const { price, name, custName, email } = req.body;
     const Stripe = new stripe(STRIPE_KEY);
 
