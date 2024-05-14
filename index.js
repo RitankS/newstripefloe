@@ -53,11 +53,13 @@ app.post("/pay", async (req, res) => {
 
 app.get('/resource', async(req, res) => {
     const id = req.query.id;
+    console.log(id)
     const payload = {
         quoteId: id
+        
     }
     if (id) {
-       return id
+      res.send("id" , id)
     } else {
         res.send('No ID provided');
     }
