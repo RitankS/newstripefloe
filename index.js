@@ -51,27 +51,35 @@ app.post("/pay", async (req, res) => {
 });
 
 
-app.get('/resource', async(req, res) => {
+app.get('/resource', async (req, res) => {
     const id = req.query.id;
-    console.log(id)
-    const payload = {
-        quoteId: id
-        
-    }
+    console.log(id);
+
     if (id) {
-      res.send("id" , id)
+        res.send(`Received ID: ${id}`);
     } else {
         res.send('No ID provided');
+        return;
     }
 
-    const response = await fetch("https://testingautotsk.app.n8n.cloud/webhook/getTicket",{
-        method: "POST",
-        headers: {
-            'Content-type': 'application/json'
-        },
-        body: JSON.stringify(payload)
-    })
-    res.status(200).json({id , response})
+    const payload = {
+        quoteId: id
+    };
+
+    try {
+        const response = await fetch("https://testingautotsk.app.n8n.cloud/webhook-test/getTicket", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+
+        const responseData = await response.json();
+        console.log('Response from external service:', responseData);
+    } catch (error) {
+        console.error('Error during fetch:', error);
+    }
 });
 
 app.listen(port, () => {
