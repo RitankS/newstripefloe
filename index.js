@@ -82,6 +82,17 @@ app.get('/resource', async (req, res) => {
     }
 });
 
+app.get('/res' , async(req,res)=>{
+    try{
+    const id = req.query.id
+    res.send(`Receive ID: ${id}`)
+    }
+    catch(err){
+        res.send("not found")
+    }
+})
+
+
 app.listen(port, () => {
     console.log(`App is listening on port ${port}`);
 });
