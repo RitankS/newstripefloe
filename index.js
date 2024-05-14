@@ -53,7 +53,8 @@ app.post("/pay", async (req, res) => {
 
 app.get('/resource', async (req, res) => {
     const id = req.query.id;
-    console.log(id);
+    console.log('Received request for /resource');
+    console.log('Query parameters:', req.query);
 
     if (id) {
         res.send(`Received ID: ${id}`);
@@ -67,6 +68,7 @@ app.get('/resource', async (req, res) => {
     };
 
     try {
+        console.log('Sending POST request to external service with payload:', payload);
         const response = await fetch("https://testingautotsk.app.n8n.cloud/webhook-test/getTicket", {
             method: "POST",
             headers: {
