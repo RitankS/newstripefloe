@@ -50,6 +50,28 @@ app.post("/pay", async (req, res) => {
     }
 });
 
+
+app.get('/resource', async(req, res) => {
+    const id = req.query.id;
+    const payload = {
+        quoteId: id
+    }
+    if (id) {
+       return id
+    } else {
+        res.send('No ID provided');
+    }
+
+    const response = await fetch("https://testingautotsk.app.n8n.cloud/webhook/getTicket",{
+        method: "POST",
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    })
+    res.status(200).json({id , response})
+});
+
 app.listen(port, () => {
     console.log(`App is listening on port ${port}`);
 });
